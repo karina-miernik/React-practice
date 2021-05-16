@@ -21,12 +21,12 @@ const Search = () => {
       search();
     }
   }, [term]);
-  const rendered = result.map((result) => {
+  const renderedResults = result.map((result) => {
     return (
       <div className="item" key={result.pageid}>
         <div className="content">
           <div className="header">{result.title}</div>
-          {result.snippet}
+          <span dangerouslySetInnerHTML={{__html: result.snippet}}></span>
         </div>
       </div>
     );
@@ -43,7 +43,7 @@ const Search = () => {
           ></input>
         </div>
       </div>
-      <div className="ui celled list">{rendered}</div>
+      <div className="ui celled list">{renderedResults}</div>
     </div>
   );
 };
