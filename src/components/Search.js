@@ -3,7 +3,6 @@ import axios from "axios";
 const Search = () => {
   const [term, setTerm] = useState("react");
   const [result, setResult] = useState([]);
-  console.log(result);
   useEffect(() => {
     const search = async () => {
       const { data } = await axios.get("https://en.wikipedia.org/w/api.php", {
@@ -24,7 +23,7 @@ const Search = () => {
   }, [term]);
   const rendered = result.map((result) => {
     return (
-      <div className="item">
+      <div className="item" key={result.pageid}>
         <div className="content">
           <div className="header">{result.title}</div>
           {result.snippet}
