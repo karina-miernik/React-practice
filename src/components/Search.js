@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 const Search = () => {
   const [term, setTerm] = useState("react");
-  const [result, setResult] = useState([]);
+  const [results, setResults] = useState([]);
   useEffect(() => {
     const search = async () => {
       const { data } = await axios.get("https://en.wikipedia.org/w/api.php", {
@@ -15,13 +15,23 @@ const Search = () => {
         },
       });
 
-      setResult(data.query.search);
+      setResults(data.query.search);
     };
-    if (term) {
-      search();
+    if (term && !results.length){
+      search()
+    } else {
+      const timeoutId = setTimeout(() => {
+        if (term) {
+          search();
+        }
+       }, 1000)
+      return () => {
+        clearTimeout(timeoutId)
+      }
     }
-  }, [term]);
-  const renderedResults = result.map((result) => {
+
+  }, [results.length, term]);
+  const renderedResults = results.map((result) => {
     return (
       <div className="item" key={result.pageid}>
         <div className="right floated content">
