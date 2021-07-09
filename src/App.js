@@ -1,4 +1,5 @@
-import React from 'react'
+/* eslint-disable no-unused-vars */
+import React, { useState } from 'react'
 import Accordion from './components/Accordion'
 import Search from './components/Search'
 import Dropdown from './components/Dropdown'
@@ -30,9 +31,13 @@ const options = [
  
 ]
 export default () => {
+  const [selected, setSelected] = useState(options[0])
   return (
     <div>
-      <Dropdown options={options}/>
+      <Dropdown 
+      selected={selected} 
+      onSelectedChange = {setSelected}
+      options={options}/>
       {/* <Accordion items={items} /> */}
     </div>
   )
